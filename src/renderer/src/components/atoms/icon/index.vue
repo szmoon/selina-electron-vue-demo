@@ -71,7 +71,7 @@ const imgSrc = computed(() => {
 
 function clickIcon() {
   if (props.href) {
-    window.open(props.href, '_blank');
+    window.electronAPI.openLink(props.href);
     return;
   }
   openWindow(props.windowName);

@@ -1,5 +1,23 @@
-import { app, BrowserWindow, shell } from 'electron';
+import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import { join } from 'node:path';
+
+function openLinkWindow(url) {
+  if (!URL.canParse(url) || new URL(url).protocol !== 'https:') return;
+
+  const linkWindow = new BrowserWindow({
+    width: 1000,
+    height: 800,
+    autoHideMenuBar: true,
+    webPreferences: {
+      contextIsolation: true,
+      nodeIntegration: false,
+      sandbox: true
+    }
+  });
+
+  linkWindow.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
+  linkWindow.loadURL(url);
+}
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
@@ -30,6 +48,7 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  ipcMain.on('open-link', (_event, url) => openLinkWindow(url));
   createWindow();
 
   app.on('activate', () => {

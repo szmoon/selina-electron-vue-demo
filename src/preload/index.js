@@ -1,10 +1,5 @@
-import { contextBridge } from 'electron';
+import { contextBridge, ipcRenderer } from 'electron';
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  platform: process.platform,
-  versions: {
-    electron: process.versions.electron,
-    chrome: process.versions.chrome,
-    node: process.versions.node
-  }
+  openLink: url => ipcRenderer.send('open-link', url)
 });
