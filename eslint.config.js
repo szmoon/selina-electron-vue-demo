@@ -14,5 +14,9 @@ export default [
       'vue/no-unused-components': 'off',
       'vue/multi-word-component-names': 'off'
     }
+  },
+  {
+    files: ['src/main/**', 'src/preload/**', '*.config.js'],
+    languageOptions: { globals: { ...globals.node } }
   }
 ];

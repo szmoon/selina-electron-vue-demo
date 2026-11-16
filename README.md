@@ -1,29 +1,30 @@
-# selinazawacki.com-v3
+# selina-electron-vue-demo
 
-## Project setup
+Electron + Vue 3, built with [electron-vite](https://electron-vite.org).
+
+Requires Node.js 22.12+.
+
+## Install
+
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+## Run
+
 ```
-npm run serve
+npm run dev
 ```
 
-### Compiles and minifies for production
+## Build
+
 ```
 npm run build
+npm start
 ```
 
-### Run your unit tests
+## Test
+
 ```
 npm run test:unit
 ```
-
-### Lints files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Vite Configuration Reference](https://vite.dev/config/).
