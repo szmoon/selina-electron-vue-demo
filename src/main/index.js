@@ -1,5 +1,17 @@
-import { app, BrowserWindow, ipcMain, shell } from 'electron';
+import { app, BrowserWindow, ipcMain, screen, shell } from 'electron';
 import { join } from 'node:path';
+
+let bsodWindow = null;
+
+function loadRoute(window, route = '/') {
+  if (!app.isPackaged && process.env.ELECTRON_RENDERER_URL) {
+    window.loadURL(`${process.env.ELECTRON_RENDERER_URL}#${route}`);
+  } else {
+    window.loadFile(join(import.meta.dirname, '../renderer/index.html'), {
+      hash: route
+    });
+  }
+}
 
 function openLinkWindow(url) {
   if (!URL.canParse(url) || new URL(url).protocol !== 'https:') return;
@@ -17,6 +29,36 @@ function openLinkWindow(url) {
 
   linkWindow.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
   linkWindow.loadURL(url);
+}
+
+function openBsodWindow() {
+  if (bsodWindow) {
+    bsodWindow.focus();
+    return;
+  }
+
+  const display = screen.getDisplayNearestPoint(screen.getCursorScreenPoint());
+
+  bsodWindow = new BrowserWindow({
+    ...display.bounds,
+    fullscreen: true,
+    frame: false,
+    backgroundColor: '#7ad2f5',
+    webPreferences: {
+      contextIsolation: true,
+      nodeIntegration: false,
+      sandbox: true
+    }
+  });
+
+  bsodWindow.webContents.on('before-input-event', (_event, input) => {
+    if (input.key === 'Escape') bsodWindow.close();
+  });
+  bsodWindow.on('closed', () => {
+    bsodWindow = null;
+  });
+
+  loadRoute(bsodWindow, '/bsod');
 }
 
 function createWindow() {
@@ -40,15 +82,12 @@ function createWindow() {
     return { action: 'deny' };
   });
 
-  if (!app.isPackaged && process.env.ELECTRON_RENDERER_URL) {
-    mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL);
-  } else {
-    mainWindow.loadFile(join(import.meta.dirname, '../renderer/index.html'));
-  }
+  loadRoute(mainWindow);
 }
 
 app.whenReady().then(() => {
   ipcMain.on('open-link', (_event, url) => openLinkWindow(url));
+  ipcMain.on('open-bsod', () => openBsodWindow());
   createWindow();
 
   app.on('activate', () => {

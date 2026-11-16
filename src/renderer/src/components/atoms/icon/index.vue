@@ -26,6 +26,10 @@ const images = import.meta.glob('images/*.png', {
 });
 
 const props = defineProps({
+  action: {
+    type: String,
+    default: undefined
+  },
   alt: {
     type: String,
     required: true
@@ -70,6 +74,10 @@ const imgSrc = computed(() => {
 });
 
 function clickIcon() {
+  if (props.action) {
+    window.electronAPI[props.action]();
+    return;
+  }
   if (props.href) {
     window.electronAPI.openLink(props.href);
     return;

@@ -17,6 +17,11 @@ const routes = [
         component: () => import('~views/About.vue')
       }
     ]
+  },
+  {
+    path: '/bsod',
+    name: 'bsod',
+    component: () => import('~views/Bsod.vue')
   }
 ];
 

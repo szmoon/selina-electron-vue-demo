@@ -3,6 +3,7 @@
     <Icon
       v-for="icon in iconData"
       :key="icon.iconName"
+      :action="icon.action"
       :alt="icon.iconAlt"
       :aria="icon.iconAria"
       :href="icon.href"

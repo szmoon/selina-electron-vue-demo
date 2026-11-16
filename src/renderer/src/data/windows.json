@@ -76,6 +76,13 @@
         "iconAria": "Open selina's github",
         "iconLabel": "github",
         "href": "https://github.com/szmoon"
+      },
+      {
+        "iconName": "cd",
+        "iconAlt": "Rainbow CD Windows XP Icon",
+        "iconAria": "What is this virus?",
+        "iconLabel": "virus.exe",
+        "action": "openBsod"
       }
     ],
     "initialPosition": {
