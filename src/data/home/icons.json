@@ -1,0 +1,23 @@
+[
+  {
+    "iconName": "folder-pink",
+    "iconAlt": "Pink Folder Windows XP Icon",
+    "iconAria": "Open about window",
+    "iconLabel": "about",
+    "windowName": "about"
+  },
+  {
+    "iconName": "network",
+    "iconAlt": "Computer Network Windows XP Icon",
+    "iconAria": "Open network window",
+    "iconLabel": "network",
+    "windowName": "network"
+  },
+  {
+    "iconName": "txt",
+    "iconAlt": "Notepad Windows XP Icon",
+    "iconAria": "Open contact window",
+    "iconLabel": "contact.txt",
+    "windowName": "contact"
+  }
+]
